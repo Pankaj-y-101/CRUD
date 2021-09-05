@@ -1,6 +1,6 @@
 import {Table,TableBody, TableCell, TableHead, TableRow,makeStyles,Button} from '@material-ui/core';
 import React from 'react';
-import {NavLink,Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import { useEffect,useState } from 'react';
 import { getUser } from '../service/api'
 
@@ -27,7 +27,7 @@ const Home=()=>{
     const getAllUser= async ()=>{
         let response= await getUser();
         console.log(response.data);
-        setUsers(response.data);
+        setUsers(response.data.data);
     }
     
     return(
@@ -36,7 +36,7 @@ const Home=()=>{
         <Button style={{color:'blue',fontSize:'19px'}}> + Add record</Button>
         </NavLink>
          <Table className={classes.table}>
-         {/* <TableHead>
+         <TableHead>
                 <TableRow className={classes.thead}>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
@@ -57,46 +57,20 @@ const Home=()=>{
                             <TableCell>{user.last_name}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.pincode}</TableCell> 
+                            <TableCell>{user.states}</TableCell> 
+                            <TableCell>{user.city}</TableCell> 
                             <TableCell>
-                                <Button variant='contained' color='primary'>Edit</Button>
-                                <Button variant='contained' color='secondary'>Delete</Button>
+                                <Button variant='contained' onClick={getAllUser} style={{marginRight:'5px',borderRadius:'10px', width:'31px',height:'25px'}} color='primary'>Edit</Button>
+                                <Button variant='contained' style={{borderRadius:'10px', width:'31px',height:'25px'}} color='secondary'>Delete</Button>
                             </TableCell> 
                             
-                            
-                        </TableRow>
-                    
-                    ))}
-                
-            </TableBody>  */}
-            <TableHead>
-                <TableRow className={classes.thead}>
-                <TableCell>ID</TableCell>
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Action</TableCell>
-               
-                </TableRow>
-            </TableHead> 
-              <TableBody>
-                {
-                    users.map ((user) => (
-                    
-                        <TableRow>
-                             <TableCell>{user.id}</TableCell>
-                            <TableCell>{user.fname}</TableCell>
-                            <TableCell>{user.lname}</TableCell>
-                            <TableCell>{user.username}</TableCell> 
-                            <TableCell>
-                                <Button variant='contained' style={{marginRight:'5px'}} component={Link} to={`/edit/${user.id}`} color='primary'>Edit</Button>
-                                <Button variant='contained' color='secondary'>Delete</Button>
-                            </TableCell> 
                             
                         </TableRow>
                     
                     ))}
                 
             </TableBody> 
+            
         </Table> 
         </>
     );
