@@ -42,9 +42,10 @@ const Home=()=>{
    localStorage.setItem('State',states)
     }
 
-   const deleteUser=()=>{
-      axios.get(`https://k6j938wg66.execute-api.us-east-1.amazonaws.com/v1/delete?param1=${email}`);
-   }
+   const deleteUser=(user)=>{
+      axios.get(`https://k6j938wg66.execute-api.us-east-1.amazonaws.com/v1/delete?param1=${user.email}`);
+     alert("Are you sure you want to delete record")
+    }
     
     return(
         <> 
@@ -77,7 +78,7 @@ const Home=()=>{
                             <TableCell>{user.city}</TableCell> 
                             <TableCell>
                                 <Button variant='contained' onClick={()=>loadData(user)} component={Link} to={`/edit/${user.email}`} style={{marginRight:'5px',borderRadius:'10px', width:'31px',height:'25px'}} color='primary'>Edit</Button>
-                                <Button variant='contained' onClick={deleteUser} style={{borderRadius:'10px', width:'31px',height:'25px'}} color='secondary'>Delete</Button>
+                                <Button variant='contained' onClick={()=>deleteUser(user)} style={{borderRadius:'10px', width:'31px',height:'25px'}} color='secondary'>Delete</Button>
                             </TableCell> 
                             
                             
