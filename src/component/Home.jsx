@@ -1,8 +1,9 @@
 import {Table,TableBody, TableCell, TableHead, TableRow,makeStyles,Button} from '@material-ui/core';
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
 import { useEffect,useState } from 'react';
 import { getUser } from '../service/api'
+import axios from 'axios';
 
 const useStyle=makeStyles({
     table:{
@@ -29,6 +30,21 @@ const Home=()=>{
         console.log(response.data);
         setUsers(response.data.data);
     }
+
+    const loadData=(user)=>{
+   console.log(user)
+   let {email,first_name,last_name,city,pincode,states}= user;
+   localStorage.setItem('Email',email);
+   localStorage.setItem('FirstName',first_name);
+   localStorage.setItem('LastName',last_name);
+   localStorage.setItem('City',city);
+   localStorage.setItem('Pincode',pincode);
+   localStorage.setItem('State',states)
+    }
+
+   const deleteUser=()=>{
+      axios.get(`https://k6j938wg66.execute-api.us-east-1.amazonaws.com/v1/delete?param1=${email}`);
+   }
     
     return(
         <> 
@@ -60,8 +76,8 @@ const Home=()=>{
                             <TableCell>{user.states}</TableCell> 
                             <TableCell>{user.city}</TableCell> 
                             <TableCell>
-                                <Button variant='contained' onClick={getAllUser} style={{marginRight:'5px',borderRadius:'10px', width:'31px',height:'25px'}} color='primary'>Edit</Button>
-                                <Button variant='contained' style={{borderRadius:'10px', width:'31px',height:'25px'}} color='secondary'>Delete</Button>
+                                <Button variant='contained' onClick={()=>loadData(user)} component={Link} to={`/edit/${user.email}`} style={{marginRight:'5px',borderRadius:'10px', width:'31px',height:'25px'}} color='primary'>Edit</Button>
+                                <Button variant='contained' onClick={deleteUser} style={{borderRadius:'10px', width:'31px',height:'25px'}} color='secondary'>Delete</Button>
                             </TableCell> 
                             
                             

@@ -14,7 +14,6 @@ const useStyles = makeStyles({
   },
   btn:{
     '& > *':{
-      display:'flex',
       marginLeft:'555px',
       width:'15%',
       marginTop:'15px'
@@ -31,23 +30,8 @@ const [states,setState]=useState('');
 const [city,setCity]=useState('');
 const [pincode,setPincode]=useState('');
 
-const addAllData=()=>{
-  console.log(first_name);
-  console.log(last_name);
-  console.log(email);
-  console.log(states);
-  console.log(city);
-  console.log(pincode);
-   axios.post('https://c0ri699qs5.execute-api.us-east-1.amazonaws.com/v1/add',{
-    'param1':email, 
-    'param2':  first_name,
-      'param3': last_name,
-      'param4':pincode,
-        'param5':city,
-        'param6':states
-
-
-   })
+const editData=()=>{
+   axios.get(`https://c0ri699qs5.execute-api.us-east-1.amazonaws.com/v1/add?param1=${email}&param2=${first_name}&param3=${last_name}&param4=${pincode}&param5=${city}&param6=${states}`)
 }
 
   const classes=useStyles();
@@ -92,8 +76,8 @@ const addAllData=()=>{
             
         </FormGroup>     
         <span className={classes.btn}>
-                <Button type='submit' variant="contained" onClick={addAllData} component={Link}  to='/home' color="primary">Add</Button>
-                <Button variant="contained" >Cancel</Button>
+                <Button type='submit' variant="contained" onClick={editData} component={Link} to='/home' color="primary">Add</Button>
+                <Button variant="contained" component={Link} to='/home'>Cancel</Button>
             </span>            
   </div>
   </div>
